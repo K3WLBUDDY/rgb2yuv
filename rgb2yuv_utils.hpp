@@ -18,12 +18,19 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#pragma once
+
 namespace rgb2yuv
 {
 
-struct utils
+class utils
 {
-    // TODO
+    public:
+    static bool getSSESupport();
+    static bool getMMXSupport();
+    static bool getAVXSupport();
+    static bool getAVX2Support();
+    static bool getAVX512Support();
 };
 
 } // namespace rgb2yuv

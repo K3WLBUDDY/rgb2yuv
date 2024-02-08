@@ -18,7 +18,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#pragma once
+
 namespace rgb2yuv
 {
-// TODO
+    class context
+    {
+        private:
+        const bool supportsSSE { false }; ///< Status of SSE support on CPU (TODO)
+        const bool supportsMMX { false }; ///< Status of MMX support on CPU (TODO)
+        const bool supportsAVX { false }; ///< Status of AVX support on CPU (TODO)
+        const bool supportsAVX2 { false }; ///< Status of AVX2 support on CPU (TODO
+        const bool supportsAVX512 { false }; ///< Status of AVX512 support on CPU (TODO)
+
+        public:
+        context();
+        bool init();
+        ~context();
+        bool deinit();
+    };
 } // namespace rgb2yuv

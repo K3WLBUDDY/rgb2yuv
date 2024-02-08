@@ -18,4 +18,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// TODO
+#include "rgb2yuv_utils_asm.hpp"
+
+namespace rgb2yuv
+{
+
+inline void utils_asm::cpuId(const std::uint32_t inputEAX,
+                             const std::uint32_t inputECX,
+                             std::array<std::uint32_t, ct_numRegisters> &out) noexcept
+{
+    // TODO
+}
+
+} // namespace rgb2yuv

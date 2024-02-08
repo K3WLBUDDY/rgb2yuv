@@ -18,7 +18,40 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include "rgb2yuv.hpp"
+#include "rgb2yuv_utils_asm.hpp"
+
+namespace rgb2yuv
+{
+
+context::context()
+{
+    // TODO
+}
+
+bool context::init()
+{
+    // TODO
+    return true;
+}
+
+context::~context()
+{
+    // TODO
+}
+
+bool context::deinit()
+{
+    // TODO
+    return true;
+}
+
+} // namespace rgb2yuv
+
+using namespace rgb2yuv;
+
 int main(int argc, char **argv)
 {
     // TODO
 }
+

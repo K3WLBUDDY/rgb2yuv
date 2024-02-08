@@ -18,4 +18,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// TODO
+#include <intrin.h>
+
+#include "rgb2yuv_utils_asm.hpp"
+
+namespace rgb2yuv
+{
+
+void utils_asm::cpuId(const std::uint32_t inputEAX,
+                      const std::uint32_t inputECX,
+                      std::array<std::uint32_t, ct_numCpuIdRegisters> &out) noexcept
+{
+    int32_t cpuInfo[ct_numCpuIdRegisters] { };
+    __cpuidex(cpuInfo, inputEAX, inputECX);
+    for (std::uint32_t idx { 0U }; idx < ct_numCpuIdRegisters; ++idx)
+    {
+        out[idx] = static_cast<std::uint32_t>(cpuInfo[idx]);
+    }
+}
+
+} // namespace rgb2yuv
