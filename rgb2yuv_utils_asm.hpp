@@ -43,9 +43,9 @@ class utils_asm
     /// @brief Invokes the CPUID assembly function and returns values stored
     ///        in registers EAX, EBX, ECX and EDX (in that order)
     ///
-    /// @param[in]     value to be stored in EAX when CPUID asm gets executed
-    /// @param[in]     value to be stored in ECX when CPUID asm gets executed
-    /// @param[in/out] @ref utils_asm::ct_numCpuIdRegisters sized std::array
+    /// @param[in] inputEAX Unsigned 32 bit integer to be stored in EAX when CPUID asm gets executed
+    /// @param[in] inputECX Unsigned 32 bit integer to be stored in ECX when CPUID asm gets executed
+    /// @param[in, out] out Reference to a @ref utils_asm::ct_numCpuIdRegisters sized std::array
     ///                containing the values of EAX, EBX, ECX and EDX after execution of CPUID asm
     ///
     /// @return None

@@ -20,6 +20,8 @@
 
 #pragma once
 
+#include "rgb2yuv_utils.hpp"
+
 namespace rgb2yuv
 {
     class context
@@ -30,6 +32,16 @@ namespace rgb2yuv
         const bool supportsAVX { false }; ///< Status of AVX support on CPU (TODO)
         const bool supportsAVX2 { false }; ///< Status of AVX2 support on CPU (TODO
         const bool supportsAVX512 { false }; ///< Status of AVX512 support on CPU (TODO)
+        // Mandatory arguments
+        const std::string inputFile; ///< Input file to be converted
+        const std::string outputFile; ///< Output file for storing converted data
+        const utils::colorFormat inputColorFormat; ///< Color format of the data present in the input file
+        const utils::colorFormat outputColorFormat; ///< Color format of the data to be written to the output file
+        const utils::fileFormat inputFileFormat; ///< File format of the input file
+        const utils::fileFormat outputFileFormat; ///< File format of the output file
+        // Optional arguments
+        uint32_t numThreads; ///< Number of threads to be used for conversion
+        bool disableSimd; ///< Specifies if SIMD can be used during conversion
 
         public:
         context();

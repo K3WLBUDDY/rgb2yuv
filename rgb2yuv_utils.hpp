@@ -23,14 +23,28 @@
 namespace rgb2yuv
 {
 
-class utils
+namespace utils
 {
-    public:
-    static bool getSSESupport();
-    static bool getMMXSupport();
-    static bool getAVXSupport();
-    static bool getAVX2Support();
-    static bool getAVX512Support();
+
+enum class ColorFormat : uint32_t
+{
+    RGB888 = 0U,
+    RGBA8888,
+    UYVY,
+    YUV420_NV12,
+    YUV444_PACKED,
+    YUV444_PLANAR,
+    YUVY,
+    LAST = YUVY
 };
+
+enum class FileFormat : uint32_t
+{
+    C_HEADER = 0U,
+    PPM,
+    RAW
+};
+
+} // namespace utils
 
 } // namespace rgb2yuv
