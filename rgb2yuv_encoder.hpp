@@ -23,7 +23,7 @@
 namespace rgb2yuv
 {
 
-struct encoder
+class Encoder
 {
     // TODO
 };

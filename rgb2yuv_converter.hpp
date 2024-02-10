@@ -23,7 +23,7 @@
 namespace rgb2yuv
 {
 
-struct converter
+class Converter
 {
     // TODO;
 };

@@ -18,40 +18,45 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <iostream>
+#include <stdexcept>
+
 #include "rgb2yuv.hpp"
+#include "rgb2yuv_utils.hpp"
 #include "rgb2yuv_utils_asm.hpp"
 
 namespace rgb2yuv
 {
 
-context::context()
+void Context::init()
 {
     // TODO
 }
 
-bool context::init()
-{
-    // TODO
-    return true;
-}
-
-context::~context()
+Context::~Context()
 {
     // TODO
 }
 
-bool context::deinit()
+void Context::deinit()
 {
     // TODO
-    return true;
 }
 
 } // namespace rgb2yuv
 
-using namespace rgb2yuv;
-
 int main(int argc, char **argv)
 {
-    // TODO
+    try
+    {
+        static_cast<void>(rgb2yuv::utils::InputParser::parseAndVerifyArgs(argc, argv));
+    }
+    catch (std::invalid_argument& e)
+    {
+        std::cerr << "rgb2yuv: FATAL EXCEPTION: " << e.what() << std::endl;
+        return -1;
+    }
+
+    return 0;
 }
 

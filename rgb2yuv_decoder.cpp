@@ -18,4 +18,83 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-// TODO
+#include "rgb2yuv_decoder.hpp"
+
+namespace rgb2yuv
+{
+
+void Decoder::init()
+{
+    if (!isSupported(m_inputFileFormat)) {
+        throw std::invalid_argument("Input file format not supported for decoding!");
+    }
+
+    if (!isSupported(m_inputColorFormat)) {
+        throw std::invalid_argument("Input color format not supported for decoding!");
+    }
+
+    m_inputFileStream = std::fstream(m_inputFile, std::ios::binary | std::ios::in);
+    if (!m_inputFileStream.is_open()) {
+        throw std::invalid_argument("Failed to open input file");
+    }
+}
+
+void Decoder::deinit()
+{
+    // TODO
+}
+
+std::vector<std::uint8_t>& Decoder::decode()
+{
+    // TODO
+    return m_decodedData;
+}
+
+void Decoder::decodePpm()
+{
+    // TODO
+}
+
+void Decoder::decodeRaw()
+{
+    // TODO
+}
+
+bool Decoder::isSupported(utils::FileFormat fileFormat) noexcept
+{
+    bool ret { false };
+
+    switch(fileFormat)
+    {
+        case(utils::FileFormat::ppm):
+        case(utils::FileFormat::raw):
+            ret = true;
+            break;
+        default:
+            // Do nothing
+            break;
+    }
+
+    return ret;
+}
+
+bool Decoder::isSupported(utils::ColorFormat colorFormat) noexcept
+{
+    bool ret { false };
+
+    switch(colorFormat)
+    {
+        case(utils::ColorFormat::rgb888):
+        case(utils::ColorFormat::rgba8888):
+            ret = true;
+            break;
+        default:
+            // Do nothing
+            break;
+    }
+
+    return ret;
+}
+
+} // namespace rgb2yuv
+
