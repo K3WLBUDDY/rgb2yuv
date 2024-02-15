@@ -22,6 +22,7 @@
 #include <stdexcept>
 
 #include "rgb2yuv.hpp"
+#include "rgb2yuv_decoder.hpp"
 #include "rgb2yuv_utils.hpp"
 #include "rgb2yuv_utils_asm.hpp"
 
@@ -49,7 +50,10 @@ int main(int argc, char **argv)
 {
     try
     {
-        static_cast<void>(rgb2yuv::utils::InputParser::parseAndVerifyArgs(argc, argv));
+        const rgb2yuv::utils::InputArguments args { rgb2yuv::utils::InputParser::parseAndVerifyArgs(argc, argv) };
+        rgb2yuv::Decoder decoder(args.inputFile, args.inputFileFormat, args.inputColorFormat);
+        decoder.init();
+        decoder.decode();
     }
     catch (std::invalid_argument& e)
     {

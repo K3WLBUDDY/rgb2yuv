@@ -18,6 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <iostream>
 #include "rgb2yuv_decoder.hpp"
 
 namespace rgb2yuv
@@ -33,7 +34,7 @@ void Decoder::init()
         throw std::invalid_argument("Input color format not supported for decoding!");
     }
 
-    m_inputFileStream = std::fstream(m_inputFile, std::ios::binary | std::ios::in);
+    m_inputFileStream = std::fstream(m_inputFile, std::ios::in);
     if (!m_inputFileStream.is_open()) {
         throw std::invalid_argument("Failed to open input file");
     }
@@ -46,13 +47,43 @@ void Decoder::deinit()
 
 std::vector<std::uint8_t>& Decoder::decode()
 {
-    // TODO
-    return m_decodedData;
+    try
+    {
+        switch (m_inputFileFormat)
+        {
+            case(utils::FileFormat::ppm):
+                decodePpm();
+                break;
+            case(utils::FileFormat::raw):
+                decodeRaw();
+                break;
+            default:
+                // Unreachable. Do nothing
+                break;
+        }
+        return m_decodedData;
+    }
+    catch(...)
+    {
+        std::cerr << "Decoding failed\n";
+        throw;
+    }
 }
 
 void Decoder::decodePpm()
 {
-    // TODO
+    std::uint32_t width { 0U };
+    std::uint32_t height { 0U };
+    // Verify PPM header
+    std::string ppmMagic { };
+    std::string expectedPpmMagic { "P3" };
+    std::getline(m_inputFileStream, ppmMagic);
+    if (ppmMagic != expectedPpmMagic) {
+        throw std::invalid_argument("Unsupported input PPM file. Only RGB PPM files (P3) are supported");
+    }
+    m_inputFileStream << height;
+    std::cout << "H: " << height << " W: " << width << "\n";
+    std::getline(m_inputFileStream, ppmMagic);
 }
 
 void Decoder::decodeRaw()

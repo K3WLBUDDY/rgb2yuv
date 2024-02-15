@@ -34,7 +34,7 @@ class Decoder
         const std::string m_inputFile; ///< Input file path
         const utils::FileFormat m_inputFileFormat; ///< Format of @ref Decoder::m_inputFile
         const utils::ColorFormat m_inputColorFormat; ///< Format of the color data in @ref Decoder::m_inputFile
-        std::vector<std::uint8_t> m_decodedData { }; ///< Container for the decoded color data in RGBA8888 form
+        std::vector<std::uint8_t> m_decodedData { }; ///< Container for the decoded color data in RGB888 form
         std::fstream m_inputFileStream; ///< Input stream to @ref Decoder::m_inputFile
 
         ///

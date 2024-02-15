@@ -185,7 +185,7 @@ utils::InputArguments InputParser::parseAndVerifyArgs(std::int32_t argc, char **
 
         return args;
     }
-    catch (std::invalid_argument& e)
+    catch (...)
     {
         // Re-throw caught exception
         throw;
