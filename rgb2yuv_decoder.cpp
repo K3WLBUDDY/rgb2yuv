@@ -42,7 +42,9 @@ void Decoder::init()
 
 void Decoder::deinit()
 {
-    // TODO
+    if (m_inputFileStream.is_open()) {
+        m_inputFileStream.close();
+    }
 }
 
 std::vector<std::uint8_t>& Decoder::decode()
@@ -74,16 +76,50 @@ void Decoder::decodePpm()
 {
     std::uint32_t width { 0U };
     std::uint32_t height { 0U };
+    std::uint32_t maxColorValue { 0U };
+    constexpr uint32_t expectedMaxColorValue { 255U };
     // Verify PPM header
     std::string ppmMagic { };
     std::string expectedPpmMagic { "P3" };
     std::getline(m_inputFileStream, ppmMagic);
-    if (ppmMagic != expectedPpmMagic) {
-        throw std::invalid_argument("Unsupported input PPM file. Only RGB PPM files (P3) are supported");
+    if (ppmMagic != expectedPpmMagic)
+    {
+        throw std::invalid_argument("Unsupported input PPM file. Only ASCII RGB PPM files (P3) are supported");
     }
-    m_inputFileStream << height;
-    std::cout << "H: " << height << " W: " << width << "\n";
-    std::getline(m_inputFileStream, ppmMagic);
+
+    // Get width, height and max supported color value from PPM file
+    m_inputFileStream >> width;
+    m_inputFileStream >> height;
+    m_inputFileStream >> maxColorValue;
+    if (maxColorValue != expectedMaxColorValue)
+    {
+        throw std::invalid_argument("Input PPM file contains a maximum RGB value > 255. Not supported");
+    }
+
+    // Get the ASCII RGB values from the file and store them in binary form
+    for (std::uint32_t readValue { 0U }; m_inputFileStream >> readValue;)
+    {
+        m_decodedData.emplace_back(static_cast<std::uint8_t>(readValue));
+    }
+
+    // Debug code to verify that the parsed data matches the input file
+    // TODO: Remove in final release
+#if 0
+    std::cout << "P3\n";
+    std::cout << width << " " << height << "\n";
+    std::cout << maxColorValue << "\n";
+    std::uint64_t idx { 0U };
+    for (const std::uint8_t value : m_decodedData)
+    {
+        ++idx;
+        std::cout << static_cast<std::uint32_t>(value);
+        if (idx % 3U == 0U) {
+            std::cout << "\n";
+        } else {
+            std::cout << " ";
+        }
+    }
+#endif
 }
 
 void Decoder::decodeRaw()

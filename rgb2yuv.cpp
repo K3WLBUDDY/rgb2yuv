@@ -48,19 +48,31 @@ void Context::deinit()
 
 int main(int argc, char **argv)
 {
+
+    // Debug code for testing.
+    // TODO: Remove in final version
+#if 0
     try
     {
         const rgb2yuv::utils::InputArguments args { rgb2yuv::utils::InputParser::parseAndVerifyArgs(argc, argv) };
         rgb2yuv::Decoder decoder(args.inputFile, args.inputFileFormat, args.inputColorFormat);
         decoder.init();
-        decoder.decode();
+        auto decodedData { decoder.decode() };
+        auto outputStream { std::fstream(args.outputFile, std::ios::out | std::ios::binary) };
+        if (!outputStream.is_open()) {
+            throw std::invalid_argument("Failed to create output file");
+        }
+        for (const uint8_t value : decodedData) {
+            outputStream << value;
+        }
+        decoder.deinit();
     }
     catch (std::invalid_argument& e)
     {
         std::cerr << "rgb2yuv: FATAL EXCEPTION: " << e.what() << std::endl;
         return -1;
     }
-
+#endif
     return 0;
 }
 
